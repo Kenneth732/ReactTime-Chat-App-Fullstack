@@ -9,14 +9,25 @@ class Api::MessagesController < ApplicationController
     render json: message
   end
 
+  # def create
+  #   message = Message.new(message_params)
+  #   if message.save
+  #     render json: message
+  #   else
+  #     render json: { errors: message.errors.full_messages }, status: :unprocessable_entity
+  #   end
+  # end
   def create
-    message = Message.new(message_params)
+    chatroom = Chatroom.find(params[:chatroom_id])
+    message = chatroom.messages.build(message_params)
+  
     if message.save
       render json: message
     else
       render json: { errors: message.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  
 
   def update
     message = Message.find(params[:id])
@@ -36,8 +47,9 @@ class Api::MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:content, :user_id)
+    params.require(:message).permit(:content, :chatroom_id)
   end
+  
 end
 
 
