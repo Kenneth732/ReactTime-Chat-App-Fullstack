@@ -24,3 +24,10 @@ Things you may want to cover:
 * ...
 # rails g controller Sessions --no-test-framework
 # rails g resource Users username password_digest --no-test-framework
+```
+sudo apt-get install redis-server
+```
+
+```
+redis-server
+```
